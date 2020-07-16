@@ -38,12 +38,27 @@ public class PolicyHandler{
             Sales storesales = new Sales();
             //storesales = salesRepository.findByOrderId(paymentApproved.getOrderId());
             storesales.setOrderId(paymentApproved.getOrderId());
-            //storesales.setStoreId(Long.valueOf(1));
+            storesales.setStoreId(Long.valueOf(1));
             storesales.setStatus("WAITING");
             // 레파지 토리에 save
             salesRepository.save(storesales);
 
         }
     }
+    /*
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverPaymentApproved_StoreOrderReceived(@Payload StoreOrderReceived storeOrderReceived){
+
+        if(storeOrderReceived.isMe()){
+            System.out.println("##### listener OrderCancelReq : " + storeOrderReceived.toJson());
+            Sales storesales = new Sales();
+            storesales = salesRepository.findByOrderId(storeOrderReceived.getId());
+            storesales.setStatus("ACCEPT");
+            storesales.setStoreId(storeOrderReceived.getStoreId());
+            // 레파지 토리에 save
+            salesRepository.save(storesales);
+        }
+    }
+    */
 
 }
